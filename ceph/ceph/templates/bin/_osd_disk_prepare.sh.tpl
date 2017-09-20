@@ -44,8 +44,8 @@ function osd_disk_prepare {
     fi
   fi
 
-  if [[ ${OSD_BLUESTORE} -eq 1 ]]; then
-    ceph-disk -v prepare ${CLI_OPTS} --bluestore ${OSD_DEVICE}
+  if [[ ${OSD_BLUESTORE} -eq 0 ]]; then
+    ceph-disk -v prepare ${CLI_OPTS} --filestore ${OSD_DEVICE}
   elif [[ ${OSD_DMCRYPT} -eq 1 ]]; then
     # the admin key must be present on the node
     if [[ ! -e $ADMIN_KEYRING ]]; then
