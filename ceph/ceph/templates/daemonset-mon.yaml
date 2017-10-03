@@ -164,7 +164,8 @@ spec:
             path: {{ .Values.ceph.storage.mon_log }}
         {{- end }}
         - name: pod-var-lib-ceph
-          emptyDir: {}
+          hostPath:
+            path: {{ .Values.ceph.storage.mon_directory }}
         - name: pod-run
           emptyDir:
             medium: "Memory"
