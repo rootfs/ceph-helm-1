@@ -29,6 +29,7 @@ images:
   daemon: docker.io/ceph/daemon:tag-build-master-luminous-ubuntu-16.04
   ceph_config_helper: docker.io/port/ceph-config-helper:v1.7.5
   rbd_provisioner: quay.io/external_storage/rbd-provisioner:v0.1.1
+  minimal: docker.io/alpine:latest
   pull_policy: "IfNotPresent"
 
 labels:
@@ -262,8 +263,8 @@ ceph:
     var_directory: /var/lib/openstack-helm/ceph/ceph
     mon_directory: /var/lib/openstack-helm/ceph/mon
     # use /var/log for fluentd to collect ceph log
-    mon_log: /var/log/ceph/mon
-    osd_log: /var/log/ceph/osd
+    # mon_log: /var/log/ceph/mon
+    # osd_log: /var/log/ceph/osd
 
 osd_directory:
   enabled: false
