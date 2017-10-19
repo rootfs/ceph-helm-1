@@ -381,6 +381,7 @@ manifests:
   job_namespace_client_key_cleaner: true
   job_namespace_client_key: true
   job_storage_admin_keys: true
+  job_storage_admin_keys_cleaner: true
   secret_keystone_rgw: true
   secret_keystone: true
   service_mon: true
