@@ -22,8 +22,8 @@ metadata:
   name: ceph-sc
 rules:
 - apiGroups: [""]
-  resources: ["persistentvolumes"]
-  verbs: ["get", "list", "create", "delete"]
+  resources: ["persistentvolumes", "persistentvolumeclaims", "events","secrets"]
+  verbs: ["get", "list", "create", "delete", "watch", "update"]
 - apiGroups: ["storage.k8s.io"]
   resources: ["storageclasses"]
   verbs: ["get", "create", "delete", "list", "watch"]
@@ -91,5 +91,19 @@ subjects:
 - kind: ServiceAccount
   name: default
   namespace: kube-system
+---
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: role-ceph-sc-ns-ceph
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ceph-sc
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: ceph
 
 
