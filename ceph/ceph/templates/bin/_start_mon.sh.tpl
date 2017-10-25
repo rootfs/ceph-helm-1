@@ -44,16 +44,11 @@ function get_mon_config {
 
   # if monmap exists and the mon is already there, don't overwrite monmap
   if [ -f "${MONMAP}" ]; then
-      MON_IPS=$(kubectl get pods --namespace=${NAMESPACE} ${KUBECTL_PARAM} -o template --template="{{`{{range .items}}`}}{{`{{if .status.podIP}}`}} {{`{{.status.podIP}}`}}{{`{{end}}`}} {{`{{end}}`}}")
-      log "MON_IPS: " "${MON_IPS}"
-      for IP in "${MON_IPS}" 
-      do
-          monmaptool --print "${MONMAP}" |grep -q "${IP// }"":6789"
-          if [ $? -eq 0 ]; then
-              log "${IP} already exists in monmap ${MONMAP}"
-              return
-          fi
-     done
+      monmaptool --print "${MONMAP}" |grep -q "${MON_IP// }"":6789"
+      if [ $? -eq 0 ]; then
+          log "${MON_IP} already exists in monmap ${MONMAP}"
+          return
+      fi
   fi
 
   # Create a monmap with the Pod Names and IP
