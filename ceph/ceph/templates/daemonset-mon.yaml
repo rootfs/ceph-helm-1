@@ -113,11 +113,6 @@ spec:
                   fieldPath: status.podIP
           command:
             - /start_mon.sh
-          lifecycle:
-            preStop:
-                exec:
-                  command:
-                    - /remove-mon.sh
           ports:
             - containerPort: 6789
           livenessProbe:
