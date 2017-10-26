@@ -252,9 +252,9 @@ ceph:
     rgw: true
     mgr: true
   storage:
-    osd_directory: /var/lib/openstack-helm/ceph/osd
-    var_directory: /var/lib/openstack-helm/ceph/ceph
-    mon_directory: /var/lib/openstack-helm/ceph/mon
+    osd_directory: /var/lib/ceph-helm/ceph/osd
+    var_directory: /var/lib/ceph-helm/ceph/ceph
+    mon_directory: /var/lib/ceph-helm/ceph/mon
     # use /var/log for fluentd to collect ceph log
     # mon_log: /var/log/ceph/mon
     # osd_log: /var/log/ceph/osd
