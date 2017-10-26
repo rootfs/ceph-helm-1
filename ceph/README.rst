@@ -1,48 +1,29 @@
-==============
-OpenStack-Helm
-==============
+=========
+Ceph-Helm
+=========
 
-Mission
+Roadmap
 -------
 
-The goal of OpenStack-Helm is to enable deployment, maintenance, and upgrading
-of loosely coupled OpenStack services and their dependencies individually or as
-part of complex environments.
+A summary of the container roadmap is available at `pad.ceph.com/p/containers <http://pad.ceph.com/p/containers>`_.
 
 Communication
 -------------
 
-* Join us on `Slack <https://kubernetes.slack.com/messages/C3WERB7DE/>`_ - #openstack-helm
-* Join us on `IRC <irc://chat.freenode.net:6697/openstack-helm>`_:
-  #openstack-helm on freenode
-* Community IRC Meetings: [Every Tuesday @ 3PM UTC],
-  #openstack-meeting-5 on freenode
-* Meeting Agenda Items: `Agenda
-  <https://etherpad.openstack.org/p/openstack-helm-meeting-agenda>`_
+* On IRC: #ceph-devel on `irc.oftc.net <http://oftc.net>`_
+* The `ceph-devel <http://vger.kernel.org/vger-lists.html#ceph-devel>`_ mailing list
 
-Launchpad
----------
+Check out `ceph.com/get-involved <https://ceph.com/get-involved/>`_ for more ways to get involved in the Ceph community.
 
-Bugs and blueprints are tracked via OpenStack-Helm's Launchpad.
+Bugs, Issues and PR
+-------------------
 
-* `Bugs <https://bugs.launchpad.net/openstack-helm>`_
-* `Blueprints <https://blueprints.launchpad.net/openstack-helm>`_
+We use GitHub to maintain this project:
 
-Installation and Development
-----------------------------
+- For bugs or issues: `GitHub issues <https://github.com/ceph/ceph-helm/issues>`_
+- For pull requests: `GitHub PR <https://github.com/ceph/ceph-helm/pulls>`_
 
-Please review our documentation at `Read the Docs <http://openstack-helm.readthedocs.io/>`_.
-For quick installation, evaluation, and convenience, we have a kubeadm
-based all-in-one solution that runs in a Docker container. The Kubeadm-AIO set
-up can be found `here, <http://openstack-helm.readthedocs.io/en/latest/install/developer/all-in-one.html>`_
-and the `gate scripts, <http://openstack-helm.readthedocs.io/en/latest/install/developer/gates.html>`_
-use are supported on any fresh Ubuntu, CentOS or Fedora machine.
+Installation
+------------
 
-This project is under active development. We encourage anyone interested in
-OpenStack-Helm to review our `Installation <http://openstack-helm.readthedocs.io/en/latest/install/index.html>`_
-documentation. Feel free to ask questions or check out our current
-`Issues and Bugs <https://bugs.launchpad.net/openstack-helm>`_.
-
-To evaluate a multinode installation, follow the
-`Bare Metal <http://openstack-helm.readthedocs.io/en/latest/install/multinode.html>`_
-install guide.
+The installation documentation is available on `ceph.com <http://docs.ceph.com/start/kube-helm/>`_.
