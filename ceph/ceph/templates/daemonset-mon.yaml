@@ -130,10 +130,6 @@ spec:
               subPath: start_mon.sh
               readOnly: true
             - name: ceph-bin
-              mountPath: /remove-mon.sh
-              subPath: remove-mon.sh
-              readOnly: true
-            - name: ceph-bin
               mountPath: /common_functions.sh
               subPath: common_functions.sh
               readOnly: true
