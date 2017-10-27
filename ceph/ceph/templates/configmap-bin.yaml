@@ -51,8 +51,6 @@ data:
 {{ tuple "bin/_osd_disk_prepare.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
   osd_disks.sh: |+
 {{ tuple "bin/_osd_disks.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
-  remove-mon.sh: |+
-{{ tuple "bin/_remove-mon.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
   start_mon.sh: |+
 {{ tuple "bin/_start_mon.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
   start_osd.sh: |+
