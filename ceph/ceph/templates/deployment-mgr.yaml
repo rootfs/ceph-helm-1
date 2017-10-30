@@ -68,16 +68,21 @@ spec:
           imagePullPolicy: {{ .Values.images.pull_policy }}
 {{ tuple $envAll $envAll.Values.pod.resources.mgr | include "helm-toolkit.snippets.kubernetes_resources" | indent 10 }}
           env:
-          {{- if .Values.deployment.ceph_local_pool }}
-            - name: LOCAL_POOL
-              value: "1"
-          {{- range $key, $val := .Values.ceph_local_pool }}
-            - name: LPOOL_{{ $key | upper }}
-              value: {{ $val | quote }}
-          {{- end}}
-          {{- end }}
-            - name: MGR_PORT
-              value: "{{ .Values.network.port.mgr }}"
+            {{- if .Values.ceph_mgr_enabled_modules }}
+            - name: ENABLED_MODULES
+              value: |-
+              {{- range $value := .Values.ceph_mgr_enabled_modules }}
+                {{ $value }}
+              {{- end }}
+            {{- end }}
+            {{- if .Values.ceph_mgr_modules_config }}
+            {{- range $module,$params := .Values.ceph_mgr_modules_config }}
+            {{- range $key, $value := $params }}
+            - name: {{ $module }}_{{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
           command:
             - /start_mgr.sh
           ports:
