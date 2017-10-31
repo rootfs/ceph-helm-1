@@ -186,7 +186,6 @@ conf:
     append:
     config:
       global:
-        max_open_files: 131072
         mon_host: null
       osd:
         #ports
@@ -262,10 +261,13 @@ ceph:
 osd_directory:
   enabled: false
 
-osd_devices:
-  - name: dev-sdc
-    device: /dev/sdc
-    zap: "1"
+# To use OSD devices
+# journal is optional
+#osd_devices:
+#  - name: dev-sdc
+#    device: /dev/sdc
+#    journal: /dev/sdf
+#    zap: "1"
 
 bootstrap:
   enabled: false
