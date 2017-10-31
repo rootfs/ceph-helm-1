@@ -88,15 +88,18 @@ spec:
           ports:
             - containerPort: {{ .Values.network.port.mgr }}
           livenessProbe:
-              httpGet:
-                path: /
-                port: {{ .Values.network.port.mgr }}
-              initialDelaySeconds: 120
+              exec:
+                command:
+                  - bash
+                  - /check_mgr.sh
+              initialDelaySeconds: 30
               timeoutSeconds: 5
           readinessProbe:
-              httpGet:
-                path: /
-                port: {{ .Values.network.port.mgr }}
+              exec:
+                command:
+                  - bash
+                  - /check_mgr.sh
+              initialDelaySeconds: 30
               timeoutSeconds: 5
           volumeMounts:
             - name: pod-etc-ceph
@@ -116,6 +119,10 @@ spec:
             - name: ceph-bin
               mountPath: /common_functions.sh
               subPath: common_functions.sh
+              readOnly: true
+            - name: ceph-bin
+              mountPath: /check_mgr.sh
+              subPath: check_mgr.sh
               readOnly: true
             - name: ceph-client-admin-keyring
               mountPath: /etc/ceph/ceph.client.admin.keyring
