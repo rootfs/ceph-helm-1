@@ -36,6 +36,7 @@ spec:
       nodeSelector:
         {{ .Values.labels.mgr.node_selector_key }}: {{ .Values.labels.mgr.node_selector_value }}
       hostNetwork: true
+      dnsPolicy: {{ .Values.pod.dns_policy }}
       serviceAccount: default
       initContainers:
 {{ tuple $envAll $dependencies "" | include "helm-toolkit.snippets.kubernetes_entrypoint_init_container" | indent 8 }}
