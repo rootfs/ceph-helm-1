@@ -26,6 +26,8 @@ metadata:
   name: ceph-mgr
 spec:
   replicas: {{ .Values.pod.replicas.mgr }}
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -68,30 +70,36 @@ spec:
           imagePullPolicy: {{ .Values.images.pull_policy }}
 {{ tuple $envAll $envAll.Values.pod.resources.mgr | include "helm-toolkit.snippets.kubernetes_resources" | indent 10 }}
           env:
-          {{- if .Values.deployment.ceph_local_pool }}
-            - name: LOCAL_POOL
-              value: "1"
-          {{- range $key, $val := .Values.ceph_local_pool }}
-            - name: LPOOL_{{ $key | upper }}
-              value: {{ $val | quote }}
-          {{- end}}
-          {{- end }}
-            - name: MGR_PORT
-              value: "{{ .Values.network.port.mgr }}"
+            {{- if .Values.ceph_mgr_enabled_modules }}
+            - name: ENABLED_MODULES
+              value: |-
+              {{- range $value := .Values.ceph_mgr_enabled_modules }}
+                {{ $value }}
+              {{- end }}
+            {{- end }}
+            {{- if .Values.ceph_mgr_modules_config }}
+            {{- range $module,$params := .Values.ceph_mgr_modules_config }}
+            {{- range $key, $value := $params }}
+            - name: {{ $module }}_{{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
           command:
             - /start_mgr.sh
-          ports:
-            - containerPort: {{ .Values.network.port.mgr }}
           livenessProbe:
-              httpGet:
-                path: /
-                port: {{ .Values.network.port.mgr }}
-              initialDelaySeconds: 120
+              exec:
+                command:
+                  - bash
+                  - /check_mgr.sh
+              initialDelaySeconds: 30
               timeoutSeconds: 5
           readinessProbe:
-              httpGet:
-                path: /
-                port: {{ .Values.network.port.mgr }}
+              exec:
+                command:
+                  - bash
+                  - /check_mgr.sh
+              initialDelaySeconds: 30
               timeoutSeconds: 5
           volumeMounts:
             - name: pod-etc-ceph
@@ -112,22 +120,14 @@ spec:
               mountPath: /common_functions.sh
               subPath: common_functions.sh
               readOnly: true
+            - name: ceph-bin
+              mountPath: /check_mgr.sh
+              subPath: check_mgr.sh
+              readOnly: true
             - name: ceph-client-admin-keyring
               mountPath: /etc/ceph/ceph.client.admin.keyring
               subPath: ceph.client.admin.keyring
               readOnly: true
-            - name: ceph-mon-keyring
-              mountPath: /etc/ceph/ceph.mon.keyring
-              subPath: ceph.mon.keyring
-              readOnly: true
-            - name: ceph-bootstrap-osd-keyring
-              mountPath: /var/lib/ceph/bootstrap-osd/ceph.keyring
-              subPath: ceph.keyring
-              readOnly: false
-            - name: ceph-bootstrap-mds-keyring
-              mountPath: /var/lib/ceph/bootstrap-mds/ceph.keyring
-              subPath: ceph.keyring
-              readOnly: false
             - name: ceph-bootstrap-mgr-keyring
               mountPath: /var/lib/ceph/bootstrap-mgr/ceph.keyring
               subPath: ceph.keyring
@@ -157,15 +157,6 @@ spec:
         - name: ceph-client-admin-keyring
           secret:
             secretName: {{ .Values.secrets.keyrings.admin }}
-        - name: ceph-mon-keyring
-          secret:
-            secretName: {{ .Values.secrets.keyrings.mon }}
-        - name: ceph-bootstrap-osd-keyring
-          secret:
-            secretName: {{ .Values.secrets.keyrings.osd }}
-        - name: ceph-bootstrap-mds-keyring
-          secret:
-            secretName: {{ .Values.secrets.keyrings.mds }}
         - name: ceph-bootstrap-mgr-keyring
           secret:
             secretName: {{ .Values.secrets.keyrings.mgr }}
