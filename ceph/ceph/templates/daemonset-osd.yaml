@@ -153,9 +153,6 @@ spec:
         - name: pod-run
           emptyDir:
             medium: "Memory"
-        - name: ceph
-          hostPath:
-            path: {{ .Values.ceph.storage.var_directory }}
         - name: ceph-bin
           configMap:
             name: ceph-bin
@@ -181,7 +178,7 @@ spec:
             secretName: {{ .Values.secrets.keyrings.rgw }}
         - name: osd-directory
           hostPath:
-            path: {{ .Values.ceph.storage.osd_directory }}
+            path: {{ tuple .Values.ceph.storage.osd_directory .Release.Namespace "osd" | join "/" }}
 {{- end }}
 {{- end }}
 {{- end }}

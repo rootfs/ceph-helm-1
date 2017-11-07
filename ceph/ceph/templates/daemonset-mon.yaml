@@ -188,7 +188,7 @@ spec:
         {{- end }}
         - name: pod-var-lib-ceph
           hostPath:
-            path: {{ .Values.ceph.storage.mon_directory }}
+            path: {{ tuple .Values.ceph.storage.mon_directory .Release.Namespace "mon" | join "/" }}
         - name: pod-run
           emptyDir:
             medium: "Memory"
