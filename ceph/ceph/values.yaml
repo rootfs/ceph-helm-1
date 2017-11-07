@@ -252,7 +252,6 @@ ceph:
     mgr: true
   storage:
     osd_directory: /var/lib/ceph-helm/ceph/osd
-    var_directory: /var/lib/ceph-helm/ceph/ceph
     mon_directory: /var/lib/ceph-helm/ceph/mon
     # use /var/log for fluentd to collect ceph log
     # mon_log: /var/log/ceph/mon
