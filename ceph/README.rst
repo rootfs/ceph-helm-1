@@ -26,4 +26,4 @@ We use GitHub to maintain this project:
 Installation
 ------------
 
-The installation documentation is available on `ceph.com <http://docs.ceph.com/start/kube-helm/>`_.
+The installation documentation is available on `ceph.com <http://docs.ceph.com/docs/master/start/kube-helm/>`_.
