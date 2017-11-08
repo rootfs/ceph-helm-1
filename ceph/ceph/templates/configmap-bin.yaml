@@ -77,5 +77,7 @@ data:
 {{ tuple "bin/_ceph-storage-admin-key-cleaner.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
   check_mgr.sh: |+
 {{ tuple "bin/_check_mgr.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
+  exec_ceph_commands.sh: |+
+{{ tuple "bin/_exec_ceph_commands.sh.tpl" . | include "helm-toolkit.utils.template" | indent 4 }}
 {{- end }}
 {{- end }}
