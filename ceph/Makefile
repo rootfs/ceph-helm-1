@@ -26,8 +26,8 @@ $(CHARTS):
 	@make $(TASK)-$@
 
 init-%:
-	if [ -f $*/Makefile ]; then make -C $*; fi
-	if [ -f $*/requirements.yaml ]; then helm dep up $*; fi
+	if [ -f $*/Makefile ]; then make --directory=$*; fi
+	if [ -f $*/requirements.yaml ]; then helm dependency update $*; fi
 
 lint-%: init-%
 	if [ -d $* ]; then $(HELM) lint $*; fi
