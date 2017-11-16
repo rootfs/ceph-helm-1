@@ -140,8 +140,10 @@ spec:
             - name: OSD_JOURNAL
               value: {{ $value.journal }}
             {{- end }}
+            {{- if $.Values.enable_zap_and_potentially_lose_data }}
             - name: OSD_FORCE_ZAP
               value: {{ $value.zap | quote }}
+            {{- end }}
             {{ if $.Values.debug }}
             - name: DEBUG
               value: {{ $.Values.debug }}
