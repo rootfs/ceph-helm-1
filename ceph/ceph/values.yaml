@@ -265,6 +265,14 @@ osd_directory:
 
 # To use OSD devices
 # journal is optional
+# /!\ /!\
+# To allow for a disk to be zapped, set zap: "1" on each
+# device and enable_zap_and_potentially_lose_data: true
+# While we prevent you from zapping a drive that belonged
+# to this cluster, if a drive belonged to another cluster or
+# has important data from another application, it will be *LOST*
+# /!\ /!\
+enable_zap_and_potentially_lose_data: false
 #osd_devices:
 #  - name: dev-sdc
 #    device: /dev/sdc
