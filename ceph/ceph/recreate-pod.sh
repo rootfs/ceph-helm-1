@@ -1,8 +1,8 @@
 #!/bin/bash
-set -x
+
 NAMESPACE=${NAMESPACE:-"ceph"}
 TIMEOUT=${TIMEOUT:-30}
-UPGRADE_ORDER=${UPGRADE_ORDER:-"mgr mon osd mds rgw rbd-provisioner"}
+UPGRADE_ORDER=${UPGRADE_ORDER:-"mgr mon osd mds rgw rbd-provisioner moncheck"}
 KUBECTL=${KUBECTLL-"kubectl"}
 
 function pod_is_ready {
