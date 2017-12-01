@@ -43,8 +43,7 @@ metadata:
   name: ${KUBE_SECRET_NAME}
 type: Opaque
 data:
-  ${CEPH_KEYRING_NAME}: |
-    $( kube_ceph_keyring_gen ${CEPH_KEYRING} ${CEPH_KEYRING_TEMPLATE} )
+  ${CEPH_KEYRING_NAME}: $( kube_ceph_keyring_gen ${CEPH_KEYRING} ${CEPH_KEYRING_TEMPLATE} )
 EOF
     } | kubectl create --namespace ${DEPLOYMENT_NAMESPACE} -f -
   fi
