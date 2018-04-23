@@ -61,9 +61,11 @@ chown ceph. /var/log/ceph
 
 # If we don't have a monitor keyring, this is a new monitor
 if [ ! -e "$MON_DATA_DIR/keyring" ]; then
-  if [ ! -e $MON_KEYRING ]; then
-    log "ERROR- $MON_KEYRING must exist.  You can extract it from your current monitor by running 'ceph auth get mon. -o $MON_KEYRING' or use a KV Store"
+  if [ ! -e ${MON_KEYRING}.seed ]; then
+    log "ERROR- ${MON_KEYRING}.seed must exist.  You can extract it from your current monitor by running 'ceph auth get mon. -o $MON_KEYRING' or use a KV Store"
     exit 1
+  else
+    cp -vf ${MON_KEYRING}.seed ${MON_KEYRING}
   fi
 
   if [ ! -e $MONMAP ]; then
